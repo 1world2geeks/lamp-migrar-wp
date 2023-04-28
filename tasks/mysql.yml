@@ -1,0 +1,56 @@
+---
+
+# tasks file for MySQL
+- name: Install mysql
+  apt: pkg={{ item }} state=present
+  #Que items? selecciona los paquetes de la carpeta vars/main.yml, donde se indica mysql y la sección de packages
+  with_items: "{{ mysql.packages }}"
+
+- name: Asegurarse de que mysql esté corriendo y habilitado al inicio.
+  service: name=mysql state=started enabled=yes
+
+##Seteamos la clave de root
+- name: Set root password
+  mysql_user:
+    login_user: root
+    login_password: ""
+    user: root
+    password: "{{ mariadb_root_password }}"
+    host: localhost
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    check_implicit_admin: yes
+  become: yes
+
+- name: Copiamos el Bakcups de la DB.
+  ansible.builtin.copy:
+    src: "files/{{ wp_mysql_db }}.sql"
+    dest: "/tmp/{{ wp_mysql_db }}.sql"
+    owner: deploy
+    group: deploy
+    mode: '0750'
+  become: yes
+
+- name: Importamos la DB mysql
+  mysql_db:
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    login_host: localhost
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    state: import
+    target: "/tmp/{{ wp_mysql_db }}.sql" #Location, on the remote host, of the dump file to read from or write to.
+    name: "{{ wp_mysql_db }}"
+  become: yes
+
+- name: Creamos usuario MySql y Atorgamos todos los privilegios sobre la DB importada
+  mysql_user:
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    login_host: localhost
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    name: "{{ wp_mysql_user }}"
+    password: "{{ wp_mysql_password }}"
+    priv: '{{ wp_mysql_db }}.*:ALL,GRANT'
+    state: present
+  become: yes
+
+  tags: mysql

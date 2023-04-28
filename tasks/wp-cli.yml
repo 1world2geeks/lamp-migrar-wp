@@ -1,0 +1,10 @@
+---
+# Instalacion de repositorios.
+
+- name: Descargamos wp-cli para administrar WP
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    dest: /usr/local/bin/wp
+    owner: "{{ adminwpcli }}"
+    group: "www-data"
+    mode: '0750'

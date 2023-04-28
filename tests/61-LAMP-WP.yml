@@ -1,0 +1,14 @@
+---
+# playbook, para configurar un entorno LAMP en un host  una vez creado
+#
+
+- name: Configuración de un entorno LAMP y Instalación de Wordpress
+  hosts: host.destino.local
+  remote_user: usuario
+  become: yes
+#  vars:
+#    - wp_mysql_password: "{{ wp_mysql_password }}"
+
+  roles:
+    - lamp-migrar-wp
+  tags: lamp
