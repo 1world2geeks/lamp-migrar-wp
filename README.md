@@ -1,4 +1,4 @@
-# lamp-migrar-wp
+# lamp-migration-wordpress
 
 It will install a LAMP environment with adequate to WordPress requirements. Configure the virtual-hosts in patch and recover the database from a backup as well as the root of the website.
 
@@ -85,7 +85,7 @@ It is possible to use other tags to call specific tasks of the role, within each
   become: yes
 
   roles:
-    - lamp-migrar-wp  
+    - lamp-migration-wordpress  
 
   #Es 
   tags: lamp
