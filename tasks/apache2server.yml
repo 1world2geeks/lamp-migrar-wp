@@ -3,17 +3,39 @@
 - name: Install apache2
   apt: pkg={{ item }} state=present
   #Que items? selecciona los paquetes de la carpeta vars/main.yml, donde se indica apache2 y la sección de packages
-  with_items: "{{ apache2.packages }}"
+  with_items: "{{ apache2.packages.ubuntu.focal }}"
+  when:
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_release == "focal"
+
+- name: Install apache2 on Debian BullSeye - BookWorm
+  apt: pkg={{ item }} state=present
+  #Que items? selecciona los paquetes de la carpeta vars/main.yml, donde se indica apache2 y la sección de packages
+  with_items: "{{ apache2.packages.debian.bullseye_bookworm }}"
+  when: (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_release'] == "bulseye") or
+        (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_release'] == "bookworm")
 
 - name: Asegurarse de que apache2 esté corriendo y habilitado al inicio.
   service: name=apache2 state=started enabled=yes
 
 - name: Descomprimimos la raiz del sitio, backups
   ansible.builtin.unarchive:
-    src: "files/{{ bk_raiz }}"
+    src: "{{ bk_raiz }}.tar.gz"
     dest: /var/www
     group: "{{ app_user }}"
     owner: "{{ app_user }}"
+
+# - name: Make sure you use the same name on the root site 
+#   command: mv  /var/www/"{{ bk_raiz }}" /var/www/"{{ http_host }}"
+
+- name: Change the owner
+  command: chown -R "{{ app_user }}":"{{ app_user }}" /var/www/"{{ http_host }}" 
+
+- name: make dirs 0755
+  command: find /var/www/"{{ http_host }}" -type d ! -perm 0755 -exec chmod 0755 {} \;
+
+- name: make files 0644
+  command: find /var/www/"{{ http_host }}" -type f ! -perm 0644 -exec chmod 0644 {} \;
 
 - name: Agregamos VirtualHost
   #Agrega los virtual Host Necesarios bansandoce en el template template/apache.conf.j2 y lo deja en /etc/apache2/site-available/default
@@ -32,6 +54,7 @@
     cmd: "/usr/sbin/a2dissite 000-default.conf"
 
   notify:
+    - check apache2 config
     - restart apache2
 
   tags: apache  

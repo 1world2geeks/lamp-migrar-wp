@@ -17,6 +17,12 @@ We define the user with which the web-apps/web-site will be executed.
 app_user: www-data
 ```
 
+It is very important to define the name of the root compressed file, in the variable "bk_raiz". This variable have to same name of the backup file without extensión ".tar.gz".
+
+```
+bk_raiz: "example-bk.tar.gz"
+```
+
 ## The variables of the Apache is define under the Ansible directories **host_vars**
 
 The following variables are used by the apache.conf.j2 template
@@ -32,8 +38,8 @@ The following variables are used by the apache.conf.j2 template
 I recomment to use a file with the name **host_var/server-hostname/vars/10_LAMP_WP.yml**.
 
 ```
- wp_mysql_db: "nombredeladatabase"
- wp_mysql_user: "nombredel usuario"
+ wp_mysql_db: "databasename"
+ wp_mysql_user: "user name"
 ```
 
 ## The variables of the wp-cli is define under the Ansible directories "host_vars"**
@@ -83,12 +89,18 @@ It is possible to use other tags to call specific tasks of the role, within each
   hosts: fqdn-host
   remote_user: remote-user
   become: yes
+   gather_facts: yes
 
   roles:
     - lamp-migration-wordpress  
 
-  #Es 
-  tags: lamp
+  tags:
+    - lamp
+    - apache
+    - php
+    - mysql
+    - wp-cli
+
 ```
 
 
