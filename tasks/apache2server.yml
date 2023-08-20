@@ -2,7 +2,6 @@
 # tasks file for apache2-role
 - name: Install apache2
   apt: pkg={{ item }} state=present
-  #Que items? selecciona los paquetes de la carpeta vars/main.yml, donde se indica apache2 y la sección de packages
   with_items: "{{ apache2.packages.ubuntu.focal }}"
   when:
     - ansible_distribution == "Ubuntu"
@@ -10,7 +9,6 @@
 
 - name: Install apache2 on Debian BullSeye - BookWorm
   apt: pkg={{ item }} state=present
-  #Que items? selecciona los paquetes de la carpeta vars/main.yml, donde se indica apache2 y la sección de packages
   with_items: "{{ apache2.packages.debian.bullseye_bookworm }}"
   when: (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_release'] == "bulseye") or
         (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_release'] == "bookworm")
@@ -20,13 +18,10 @@
 
 - name: Descomprimimos la raiz del sitio, backups
   ansible.builtin.unarchive:
-    src: "{{ bk_raiz }}.tar.gz"
+    src: "{{ bk_raiz }}"
     dest: /var/www
     group: "{{ app_user }}"
     owner: "{{ app_user }}"
-
-# - name: Make sure you use the same name on the root site 
-#   command: mv  /var/www/"{{ bk_raiz }}" /var/www/"{{ http_host }}"
 
 - name: Change the owner
   command: chown -R "{{ app_user }}":"{{ app_user }}" /var/www/"{{ http_host }}" 
@@ -38,7 +33,6 @@
   command: find /var/www/"{{ http_host }}" -type f ! -perm 0644 -exec chmod 0644 {} \;
 
 - name: Agregamos VirtualHost
-  #Agrega los virtual Host Necesarios bansandoce en el template template/apache.conf.j2 y lo deja en /etc/apache2/site-available/default
   template:
     src=apache.conf.j2
     dest="/etc/apache2/sites-available/{{ http_conf }}"

@@ -1,10 +1,8 @@
 ---
 
-#Define php version: 7.3 , 7.4 , 8.1
-#define_php_version: "7.4"
+#Define php version: 7.4 , 8.2
 
-##It is necessary to publish the following variables in a file under the host_vars directory, eg 10_lamp.yml
-
+##It is necessary to publish the following variables in a file under the host_vars directory, ex: 10_lamp.yml
 # bk_raiz: "site-name.tar.gz"
 # http_host: "site-name"
 # http_fqdn: "www.site-name.example.com"
@@ -14,6 +12,7 @@
 
 http_port: "80"
 app_user: www-data
+adminwpcli: www-data
 
 apache2:
   packages:

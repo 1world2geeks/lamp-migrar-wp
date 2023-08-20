@@ -1,5 +1,7 @@
 ---
 # Instalacion de repositorios.
+# We use the variable **adminwpcli** to define the owner of the root folder. At the moment it is the same as www-data, but in the future we want each WP site to be installed with a specific user and not a global one.
+
 
 - name: Descargamos wp-cli para administrar WP
   ansible.builtin.get_url:
