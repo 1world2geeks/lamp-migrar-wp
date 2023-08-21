@@ -44,7 +44,7 @@ extension.
 
 ## The variables of the db
 
-I recomment to use a file with the name **host_var/server-hostname/vars/10_LAMP_WP.yml**.
+I recomment to use a file with the name **host_var/server-hostname/vars/10_lamp_wp.yml**.
 
 It is important to know that the database name is defined without the extension **.sql**.
 
@@ -55,7 +55,7 @@ It is important to know that the database name is defined without the extension 
 
 ## Set root password, encrypted with Vault
 
-Define vault file, **host_var/server-hostname/vault/main.yml**. Remember create and edit this file with **ansible-vault** command. Is you not know this command, please see the next (link)[https://docs.ansible.com/ansible/latest/cli/ansible-vault.html#ansible-vault]
+Define vault file, **host_var/server-hostname/vault/main.yml**. Remember create and edit this file with **ansible-vault** command. Is you not know this command, please see the next [link](https://docs.ansible.com/ansible/latest/cli/ansible-vault.html#ansible-vault)
 
 ```
 mariadb_root_password: "{{ vault_mariadb_root_password }}"
@@ -78,10 +78,8 @@ It is possible to use other tags to call specific tasks of the role, within each
 
 ```
 ---
-# playbook, para configurar un entorno LAMP en un host  una vez creado
-#
 
-- name: Configuración de un entorno LAMP y Instalación de Wordpress
+- name: config a LAMP environment and install WP
   hosts: fqdn-host
   remote_user: remote-user
   become: yes
