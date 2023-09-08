@@ -7,7 +7,7 @@
 - name: restart apache2
   become: yes
   service: name=apache2 state=restarted
-  when: result|Syntax OK
+#  when: result|Syntax OK
   
   #Lansa un comando desde la shell
   #shell: /etc/init.d/apache2 restart

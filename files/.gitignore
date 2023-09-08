@@ -1,5 +1,13 @@
 #Ignore all SQL files
 *.sql
 
-#Ignore all .tar.gz BK
+#Ignore all compression formats
+*.tar
 *.tar.gz
+*.tar.bz2
+*.zip
+*.rar
+*.gz
+*.tgz
+*.bz2
+*.xz
