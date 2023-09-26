@@ -16,3 +16,6 @@
   apt: pkg={{ item }} state=present
   #Que items? selecciona los paquetes de la carpeta vars/main.yml, donde se indica mysql y la sección de packages
   with_items: "{{ systemconfig.packages }}"
+  when: (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_release'] == "bulseye") or
+        (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_release'] == "bookworm") or
+        (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_release'] == "focal")
