@@ -5,6 +5,8 @@
   apt: pkg={{ item }} state=present
   #Que items? selecciona los paquetes de la carpeta vars/main.yml, donde se indica mysql y la sección de packages
   with_items: "{{ mysql.packages }}"
+  when: (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_release'] == "bulseye") or
+        (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_release'] == "bookworm")
 
 - name: Asegurarse de que mysql esté corriendo y habilitado al inicio.
   service: name=mysql state=started enabled=yes
