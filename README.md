@@ -35,7 +35,17 @@ It is very important to define the name of the root compressed file, in the vari
 bk_raiz: "webtest.tar.gz"
 ```
 
-I recomment to create a folder with the name files under your host_var, ex: **host_var/server-hostname/vars/files**. In this way you will have the bk of each host located correctly on the destination server, if you use this method it is important that you add a **.gitignore** file defining which file extensions **git** will ignore, the reason for this is that these files are very very large to store in this repository. With this in mind we are going to ignore the files under the "files" directories with the extension .sql and .tar.gz.
+I recomment to create a folder with the name files under your host_var, ex: **host_var/server-hostname/vars/files**. In this way you will have the bk of each host located correctly on the destination server, if you use this method it is important that you add a **.gitignore** file defining which file extensions **git** will ignore, the reason for this is that these files are very very large to store in this repository. With this in mind we are going to ignore the files under the "files" directories with the extension .sql and the next list compress extension:
+
+- .tar
+- .tar.gz
+- .tar.bz2
+- .zip
+- .rar
+- .gz
+- .tgz
+- .bz2
+- .xz
 
 There is already a file in the role, it would just be to copy it to the folder **host_var/server-hostname/vars/files**.
 
