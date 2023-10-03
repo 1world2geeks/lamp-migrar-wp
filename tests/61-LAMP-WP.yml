@@ -10,8 +10,9 @@
     - lamp-migration-wordpress  
 
   tags:
-    - lamp
-    - apache
-    - php
-    - mysql
-    - wp-cli
+    - migrationRestoreWP
+    - mr-lamp
+    - mr-apache
+    - mr-php
+    - mr-mysql
+    - mr-wp-cli

@@ -99,10 +99,11 @@ It is possible to use other tags to call specific tasks of the role, within each
     - lamp-migration-wordpress  
 
   tags:
-    - lamp
-    - apache
-    - php
-    - mysql
-    - wp-cli
+    - migrationRestoreWP
+    - mr-lamp
+    - mr-apache
+    - mr-php
+    - mr-mysql
+    - mr-wp-cli
 
 ```

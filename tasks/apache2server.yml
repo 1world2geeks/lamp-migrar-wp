@@ -52,4 +52,4 @@
     - check apache2 config
     - restart apache2
 
-  tags: apache  
+  tags: mr-apache  

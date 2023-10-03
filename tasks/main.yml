@@ -2,26 +2,26 @@
 
 - import_tasks:  systemconfig.yml
   tags:
-    - systemconfig
-    - lamp
+    - mr-systemconfig
+    - migrationRestoreWP
 
 - import_tasks: apache2server.yml
   tags:
-    - apache
-    - lamp
+    - mr-apache
+    - migrationRestoreWP
 
 - import_tasks: mysql.yml
   tags:
-    - mysql
-    - lamp
+    - mr-mysql
+    - migrationRestoreWP
 
 - import_tasks: php.yml 
   tags:
-    - php
-    - lamp
+    - mr-php
+    - migrationRestoreWP
 
 - import_tasks: wp-cli.yml
   tags:
-    - wp-cli
-    - lamp
+    - mr-wp-cli
+    - migrationRestoreWP
 ...
