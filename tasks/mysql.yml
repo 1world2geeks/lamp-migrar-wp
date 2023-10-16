@@ -12,8 +12,7 @@
 - name: Asegurarse de que mysql esté corriendo y habilitado al inicio.
   service: name=mysql state=started enabled=yes
 
-
-- name: Copiamos el Bakcups de la DB.
+- name: Copiamos el Bakcups individual de las DBs.
   ansible.builtin.copy:
     src: "files/{{ item.value.wp_mysql_db }}.sql"
     dest: "/tmp/{{ item.value.wp_mysql_db }}.sql"
